@@ -1,23 +1,17 @@
 import xml.etree.ElementTree as ET
-tree = ET.parse('items.xml')
-root = tree.getroot()
 
-# one specific item attribute
-print('Item #2 attribute:')
-print(root[0][1].attrib)
+# create the file structure
+data = ET.Element('data')
+items = ET.SubElement(data, 'items')
+item1 = ET.SubElement(items, 'item')
+item2 = ET.SubElement(items, 'item')
+item1.set('name','item1')
+item2.set('name','item2')
+item1.text = 'item1abc'
+item2.text = 'item2abc'
 
-# all item attributes
-print('\nAll attributes:')
-for elem in root:
-    for subelem in elem:
-        print(subelem.attrib)
+# create a new XML file with the results
+mydata = ET.tostring(data)
+myfile = open("items2.xml", "wb")
+myfile.write(mydata)
 
-# one specific item's data
-print('\nItem #2 data:')
-print(root[0][1].text)
-
-# all items data
-print('\nAll item data:')
-for elem in root:
-    for subelem in elem:
-        print(subelem.text)
